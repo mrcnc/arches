@@ -5,16 +5,7 @@ from arches.app.models import models
 from arches.app.models.tile import Tile
 import json
 
-details = {
-    'name': 'Sample Function',
-    'type': 'node',
-    'description': 'Just a sample demonstrating node group selection',
-    'defaultconfig': {"selected_nodegroup":""},
-    'classname': 'SampleFunction',
-    'component': 'views/components/functions/sample-function'
-}
-
-class SampleFunction(BaseFunction):
+class ResourceNamingFunction(BaseFunction):
 
     def save(self):
         print 'calling save'
