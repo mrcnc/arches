@@ -26,3 +26,6 @@ docs/_build
 arches/logs/*.log
 arches/logs/*.prof
 arches/db/system_settings/Arches_System_Settings_Local.json
+elasticsearch*
+Procfile
+homebrew.pth

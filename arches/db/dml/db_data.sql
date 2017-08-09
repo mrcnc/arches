@@ -2086,6 +2086,8 @@ INSERT INTO functions(functionid, modulename, classname, functiontype, name, des
 INSERT INTO functions(functionid, modulename, classname, functiontype, name, description, defaultconfig, component)
     VALUES ('60000000-0000-0000-0000-000000000002', 'required_nodes.py', 'RequiredNodesFunction', 'validation', 'Define Required Nodes', 'Define which values are required for a user to save card', '{"required_nodes":"{}"}', 'views/components/functions/required-nodes');
 
+INSERT INTO functions(functionid, modulename, classname, functiontype, name, description, defaultconfig, component)
+    VALUES ('60000000-0000-0000-0000-000000000003', 'resource_naming.py', 'ResourceNamingFunction', 'validation', 'Custom Resource Naming', 'Define custom naming convention for Nodes', '{}', 'views/components/functions/resource-naming');
 
 
 
