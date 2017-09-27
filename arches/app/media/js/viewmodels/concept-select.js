@@ -89,6 +89,11 @@ define([
                     };
                 },
                 results: function (data, page) {
+                    data.results.forEach(function (row) {
+                        if (row.type == 'collector') {
+                            delete item.id;
+                        }
+                    });
                     return {
                         results: data.results,
                         more: data.more
