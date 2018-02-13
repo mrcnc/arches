@@ -30,6 +30,8 @@ from arches.app.views.mobile_survey import MobileSurveyManagerView, MobileSurvey
 from arches.app.views.auth import LoginView, SignupView, ConfirmSignupView, ChangePasswordView, GetTokenView
 from arches.app.models.system_settings import settings
 
+from arches.app.views.ldp import LdpView
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -125,6 +127,8 @@ urlpatterns = [
     url(r'^user$', UserManagerView.as_view(), name="user_profile_manager"),
     url(r'^mobile_survey_resources/(?P<surveyid>%s)/resources$' % uuid_regex, MobileSurveyResources.as_view(), name='mobile_survey_resources'),
     url(r'^mobile_survey_manager/*', MobileSurveyManagerView.as_view(), name="mobile_survey_manager"),
+
+    url(r'^ldp/(?P<modelid>[a-zA-Z_-]+)/(?P<resourceid>%s)?' % uuid_regex, LdpView.as_view(), name="ldp" ),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
