@@ -72,12 +72,10 @@ class RdfWriter(Writer):
 
             return graph_cache[graphid]
 
-
         def add_edge_to_graph(graph, domainnode, rangenode, edge):
             graph.add((domainnode, RDF.type, URIRef(edge.domainnode.ontologyclass)))
             graph.add((rangenode, RDF.type, URIRef(edge.rangenode.ontologyclass)))
             graph.add((domainnode, URIRef(edge.ontologyproperty), rangenode))
-
 
         archesproject = Namespace(settings.ARCHES_NAMESPACE_FOR_DATA_EXPORT)
         g = Graph()
@@ -91,11 +89,11 @@ class RdfWriter(Writer):
             for edge in graph_cache[graphid]['rootedges']:
                 domainnode = archesproject[str(edge.domainnode.pk)]
                 rangenode = archesproject[str(edge.rangenode.pk)]
+                print "adding edge:  %s - %s" % (domainnode, rangenode)
                 add_edge_to_graph(g, domainnode, rangenode, edge)
 
             for tile in tiles:
                 # add all the edges for a given tile/nodegroup
-
                 for edge in graph_info['subgraphs'][tile.nodegroup]['edges']:
                     domainnode = archesproject["tile/%s/node/%s" % (str(tile.pk), str(edge.domainnode.pk))]
                     rangepk = str(edge.rangenode.pk)
@@ -111,6 +109,7 @@ class RdfWriter(Writer):
                             else:
                                 print "Unknown node type: %s" % edge.rangenode.datatype
                     else:
+                        print "No tile data for this node (%s)..." % (edge.rangenode.datatype)
                         rangenode = archesproject["tile/%s/node/%s" % (str(tile.pk), rangepk)]                        
                     if rangenode:
                         print "in edges, adding %s %s" % (domainnode, rangenode)                        
@@ -147,8 +146,13 @@ class RdfWriter(Writer):
                     domainnode = archesproject["tile/%s/node/%s" % (str(tile.parenttile.pk), str(edge.domainnode.pk))]
                     rangepk = str(edge.rangenode.pk)
                     rangenode = None
-                    if rangepk in tile.data:
-                        if tile.data[rangepk]:
+                    if tile.data[rangepk]:
+                        if edge.rangenode.datatype == "concept":
+                            rangenode = archesproject["concept/%s" % str(rangepk)]
+                        elif edge.rangenode.datatype == "resource-instance":
+                            rangenode = archesproject["resource/%s" % str(rangepk)]
+                        else: 
+                            print "sub-parent type: %s" % edge.rangenode.datatype
                             rangenode = Literal(tile.data[rangepk])
                     else:
                         rangenode = archesproject["tile/%s/node/%s" % (str(tile.pk), rangepk)]
