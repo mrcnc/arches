@@ -100,10 +100,6 @@ class RdfWriter(Writer):
                 # and the parent node has other data
                 # find outbound edges from current node and look for tile data?
 
-                print tile.pk
-                for edge in graph_info['subgraphs'][edge.rangenode.nodegroup]['edges']:
-                    print edge.rangenode
-
                 rangenode = archesproject["tile/%s/node/%s" % (str(tile.pk), rangepk)]
             return rangenode
 
