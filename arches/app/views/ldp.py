@@ -4,6 +4,7 @@
 from arches.app.views.base import BaseManagerView
 from django.http import HttpResponse, HttpResponseNotFound
 from arches.app.models.resource import Resource
+from arches.app.models.models import ResourceInstance
 from arches.app.utils.data_management.resources.formats.rdffile import RdfWriter
 
 from pyld import jsonld
@@ -89,7 +90,8 @@ class LdpView(BaseManagerView):
 				"contains": []
 			}
 
-			out['contains'] = ["http://localhost:8000/ldp/%s/%s" % ( modelid, str(x.pk)) for x in Resource.objects.filter(graph=model)]
+			contains = list(ResourceInstance.objects.filter(graph=model).values_list('pk', flat=True).order_by('pk'))
+			out['contains'] = ["http://localhost:8000/ldp/%s/%s" % ( modelid, str(x)) for x in contains]
 			value = json.dumps(out, indent=2, sort_keys=True)
 
 		return HttpResponse(value)
