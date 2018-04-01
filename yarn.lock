@@ -978,6 +978,10 @@ bootstrap@3.3.2, bootstrap@^3.3:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.3.2.tgz#43b0283dfb2ac83b12cd3dc1f4238f5042ed02cc"
 
+bootstrap@~3:
+  version "3.3.7"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.3.7.tgz#5a389394549f23330875a3b150656574f8a9eb71"
+
 bops@0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/bops/-/bops-0.0.6.tgz#082d1d55fa01e60dbdc2ebc2dba37f659554cf3a"
@@ -1513,17 +1517,21 @@ knockout-mapping@~2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/knockout-mapping/-/knockout-mapping-2.6.0.tgz#052759d01ecf30d4947e8ebe64ad2c82933f06ff"
 
-knockout@3.4.0, knockout@>=2.3.0:
+knockout@3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/knockout/-/knockout-3.4.0.tgz#59d7261815a11eb7c1a3f3c7077ca898a44caadb"
 
-knockstrap@1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/knockstrap/-/knockstrap-1.3.2.tgz#546b713dc8eee9cf56900f9a772d8e51e67aab06"
+knockout@>=2.3.0:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/knockout/-/knockout-3.4.2.tgz#e87958de77ad1e936f7ce645bab8b5d7c456d937"
+
+knockstrap@1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/knockstrap/-/knockstrap-1.4.0.tgz#8b4309f41dca107eb678264ee2b81c570aca1223"
   dependencies:
+    bootstrap "~3"
     jquery ">=1.9.0"
     knockout ">=2.3.0"
-    twitter-bootstrap-3.0.0 "~3"
 
 latlon-geohash@1.1.0:
   version "1.1.0"
@@ -2080,10 +2088,6 @@ traverse@~0.6.6:
 trim@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/trim/-/trim-0.0.1.tgz#5858547f6b290757ee95cccc666fb50084c460dd"
-
-twitter-bootstrap-3.0.0@~3:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/twitter-bootstrap-3.0.0/-/twitter-bootstrap-3.0.0-3.0.0.tgz#30a24297b48373f93cd9abe10fd9924415c3d17a"
 
 two-product@^1.0.2:
   version "1.0.2"
