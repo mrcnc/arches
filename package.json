@@ -18,7 +18,7 @@
         "d3": "3.5.17",
         "datatables.net": "~1.10.12",
         "datatables.net-bs": "~1.10.12",
-        "datatables.net-responsive": "~2.1.0",
+        "datatables.net-responsive": "~2.2.1",
         "datatables.net-responsive-bs": "~2.1.0",
         "dropzone": "3.8.4",
         "eonasdan-bootstrap-datetimepicker": "~4.17.43",
