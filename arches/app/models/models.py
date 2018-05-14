@@ -20,7 +20,6 @@ from django.contrib.gis.db import models
 from django.contrib.postgres.fields import JSONField
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
-from django.core.validators import RegexValidator
 from django.db.models import Q, Max
 from django.dispatch import receiver
 from django.utils.translation import ugettext as _
