@@ -20,6 +20,7 @@ import itertools
 import zipfile
 import json
 import uuid
+import re
 from django.db import transaction
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render
@@ -120,7 +121,7 @@ class GraphSettingsView(GraphBaseView):
         data = JSONDeserializer().deserialize(request.body)
         for key, value in data.get('graph').iteritems():
             if key in ['iconclass', 'name', 'author', 'description', 'isresource',
-                'ontology_id', 'version',  'subtitle', 'isactive', 'color', 'jsonldcontext']:
+                'ontology_id', 'version',  'subtitle', 'isactive', 'color', 'jsonldcontext', 'alias']:
                 setattr(graph, key, value)
 
         node = models.Node.objects.get(graph_id=graphid, istopnode=True)
@@ -170,8 +171,16 @@ class NewGraphSettingsView(GraphBaseView):
         data = JSONDeserializer().deserialize(request.body)
         for key, value in data.get('graph').iteritems():
             if key in ['iconclass', 'name', 'author', 'description', 'isresource',
-                'ontology_id', 'version',  'subtitle', 'isactive', 'color', 'jsonldcontext']:
+                'ontology_id', 'version',  'subtitle', 'isactive', 'color', 'jsonldcontext', 'alias']:
                 setattr(graph, key, value)
+
+        alias_regex = re.compile('^[-\w]+$')
+
+        if (graph.alias) > 0:
+            if alias_regex.match(graph.alias) == None:
+                title = _("Invalid graph alias")
+                message = _("Your graph alias, {0}, is invalid. Only letters, numbers, underscores, and hyphens are allowed in a graph alias".format(graph.alias))
+                return JSONResponse({'status':'false','message':message, 'title':title}, status=500)
 
         node = models.Node.objects.get(graph_id=graphid, istopnode=True)
         node.set_relatable_resources(data.get('relatable_resource_ids'))
@@ -187,7 +196,6 @@ class NewGraphSettingsView(GraphBaseView):
             'graph': graph,
             'relatable_resource_ids': [res.nodeid for res in node.get_relatable_resources()]
         })
-
 
 @method_decorator(group_required('Graph Editor'), name='dispatch')
 class GraphManagerView(GraphBaseView):

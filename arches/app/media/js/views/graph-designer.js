@@ -33,6 +33,7 @@ define([
         ontology_namespaces: data.ontology_namespaces
     });
 
+    viewModel.alert = ko.observable(null);
     viewModel.graphModel.on('error', function(response){
         viewModel.alert(new AlertViewModel('ep-alert-red', response.responseJSON.title, response.responseJSON.message));
     });
@@ -65,7 +66,8 @@ define([
         iconFilter: ko.observable(''),
         node: viewModel.selectedNode,
         rootNodeColor: ko.observable(''),
-        ontology_namespaces: data.ontology_namespaces
+        ontology_namespaces: data.ontology_namespaces,
+        alert: viewModel.alert
     });
 
     viewModel.graphTree = new GraphTree({

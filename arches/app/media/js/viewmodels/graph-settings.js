@@ -3,10 +3,11 @@ define([
     'underscore',
     'knockout',
     'knockout-mapping',
+    'viewmodels/alert',
     'bindings/color-picker',
     'arches',
     'bindings/chosen'
-], function ($, _, ko, koMapping, colorPicker, arches) {
+], function ($, _, ko, koMapping, AlertViewModel, colorPicker, arches) {
     var GraphSettingsViewModel = function(params) {
 
         var self = this;
@@ -19,9 +20,8 @@ define([
                 resource.isRelatable = ko.observable(resource.is_relatable);
             });
         })
-
         var srcJSON = JSON.stringify(koMapping.toJS(params.graph));
-
+        self.alert = params.alert;
         self.graph = params.graph;
         self.node = params.node
         self.graph.name.subscribe(function(val){
@@ -89,7 +89,7 @@ define([
                     self.node()._node(JSON.stringify(self.node()))
                 })
                 .fail(function(response) {
-                    console.log('there was an error saving the settings', response)
+                    self.alert(new AlertViewModel('ep-alert-red', response.responseJSON.title, response.responseJSON.message))
                 })
                 .always(function(){
                     self.contentLoading(false);
